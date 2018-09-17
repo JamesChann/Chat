@@ -8,6 +8,8 @@ const model = require('./model')
 const User = model.getModel('user')
 const Chat = model.getModel('chat')
 
+// 清除聊天信息
+// Chat.remove({}, function(err, doc) {})
 
 Router.get('/list', function(req, res) {
   // 清除所有记录
@@ -37,11 +39,18 @@ Router.post('/update', function(req, res) {
 
 // 获取用户聊天信息
 Router.get('/getmsglist', function(req, res) {
-  const user = req.cookies.user
-  Chat.find({}, function(err, doc) {
-    if (!err) {
-      return res.json({code: 0, msgs: doc})
-    }
+  const user = req.cookies.userId
+
+  User.find({}, function(err ,userdoc) {
+    let users = {}
+    userdoc.forEach((item) => {
+      users[item._id] = {name: item.user, avatar: item.avatar}
+    })
+    Chat.find({'$or': [{from: user}, {to: user}]}, function(err, doc) {
+      if (!err) {
+        return res.json({code: 0, msgs: doc, users: users})
+      }
+    })
   })
 })
 

@@ -20,7 +20,7 @@ const models = {
     'money': {type: String}
   },
   chat: {
-    'chatId': {'type': String, require: true},
+    'chatId': {type: String, require: true},
     'from': {type: String, require: true},
     'to': {type: String, require: true},
     'read': {type: Boolean, default: false},

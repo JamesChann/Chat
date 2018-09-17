@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { List, InputItem } from 'antd-mobile'
+import { List, InputItem, NavBar, Icon } from 'antd-mobile'
 import { connect } from 'react-redux'
-import { getMsgList } from '../../redux/chatting.redux'
+import { getMsgList, sendMsg, recvMsg } from '../../redux/chatting.redux'
 import io from 'socket.io-client'
 
 const socket = io('ws://localhost:9093')
@@ -16,6 +16,7 @@ class Chat extends Component {
   }
   componentDidMount() {
     this.props.getMsgListInfo()
+    this.props.recvMsgInfo()
     // socket.on('recvmsg', (data) => {
     //   this.setState({
     //     msg: [...this.state.msg, data.text]
@@ -24,11 +25,41 @@ class Chat extends Component {
   }
 
   render() {
+    const users = this.props.chatInfo.users
+    const userId = this.props.match.params.user
+    const Item = List.Item
+    if (!users[userId]) {
+      return null
+    }
+    console.log(this.props)
     return (
-      <div>
+      <div id='chat-page'>
+        <NavBar mode="dark" icon={<Icon type="left" />} onLeftClick={() => {
+          this.props.history.goBack()
+        }}
+        >
+          {users[userId].name}
+        </NavBar>
+
         {
-          this.state.msg.map((item) => {
-            return <p key={item}>{item}</p>
+          this.props.chatInfo.chatmsg.map((item) => {
+            const avatar = require(`../img/${users[item.from].avatar}.png`)
+            return item.from === userId ? (
+              <List key={item._id}>
+                <Item
+                  thumb={avatar}
+                >
+                  {item.content}
+                </Item>
+              </List>
+            ) : (
+              <List key={item._id}>
+                <Item className="chat-me" extra={<img src={avatar} />}>
+                  {item.content}
+                </Item>
+              </List>
+            )
+            // return <p key={item._id}>{item.content}</p>
           })
         }
         <div className="stick-footer">
@@ -53,8 +84,14 @@ class Chat extends Component {
   }
 
   handleSubmit() {
-    console.log(this.state)
-    socket.emit('sendmsg', {text: this.state.text})
+    // socket.emit('sendmsg', {text: this.state.text})
+    // this.setState({
+    //   text: ''
+    // })
+    const from = this.props.userInfo._id
+    const to = this.props.match.params.user
+    const msg = this.state.text
+    this.props.sendMsgInfo({from, to, msg})
     this.setState({
       text: ''
     })
@@ -63,6 +100,8 @@ class Chat extends Component {
 
 const mapState = (state) => {
   return {
+    userInfo: state.user,
+    chatInfo: state.chatting
   }
 }
 
@@ -70,6 +109,12 @@ const mapDispatch = (dispatch) => {
   return {
     getMsgListInfo() {
       dispatch(getMsgList())
+    },
+    sendMsgInfo({from, to, msg}) {
+      dispatch(sendMsg({from, to, msg}))
+    },
+    recvMsgInfo() {
+      dispatch(recvMsg())
     }
   }
 }
