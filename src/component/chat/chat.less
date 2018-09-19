@@ -1,0 +1,63 @@
+#chat-page {
+  .chathe {
+    overflow: hidden;
+    margin: 15px 0;
+    padding: 0 10px;
+    .chatavatar {
+      float: left;
+      width: 52px;
+      height: 52px;
+    }
+    .chattxt {
+      position:relative;
+      max-width: 65%;
+      line-height: 20px;
+      float: left;
+      font-size: 16px;
+      margin-left: 14px;
+      padding: 15px;
+      border-radius: 10px;
+      background: #fff;
+      .arrow {
+        position:absolute;
+        top:10px;
+        left:-15px; /* 圆角的位置需要细心调试哦 */
+        width:0;
+        height:0;
+        font-size:0;
+        border:solid 8px;
+        border-color:transparent #fff transparent transparent;
+      }
+    }
+  }
+  .chatme {
+    overflow: hidden;
+    margin: 15px 0;
+    padding: 0 10px;
+    .chatavatar {
+      float: right;
+      width: 52px;
+      height: 52px;
+    }
+    .chattxt {
+      position:relative;
+      max-width: 65%;
+      line-height: 20px;
+      float: right;
+      margin-right: 14px;
+      border-radius: 10px;
+      padding: 15px;
+      background: rgb(46, 207, 54);
+      .arrow {
+        position:absolute;
+        top:10px;
+        right:-15px; /* 圆角的位置需要细心调试哦 */
+        width:0;
+        height:0;
+        font-size:0;
+        border:solid 8px;
+        border-color:transparent transparent transparent rgb(46, 207, 54);
+      }
+    }
+  }
+}

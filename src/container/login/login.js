@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { login } from '../../redux/user.redux'
 import { chatForm } from '../../component/chat-form/chat-form'
+import './login.less'
 
 @chatForm
 class Login extends Component {
@@ -16,7 +17,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
+      <div className="login-bg">
         {
           this.props.redirectTo && this.props.redirectTo !== '/login' ? <Redirect to={this.props.redirectTo} /> : null
         }
@@ -35,9 +36,10 @@ class Login extends Component {
               type="password"
             >密码</InputItem>
           </List>
+          <WhiteSpace /><WhiteSpace />
           <Button type="primary" onClick={this.handleClick}>登录</Button>
           <WhiteSpace />
-          <Button onClick={this.register} type="primary">注册</Button>
+          <Button onClick={this.register} className="active" type="primary">注册</Button>
         </WingBlank>
       </div>
     )

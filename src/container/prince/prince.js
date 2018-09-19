@@ -4,15 +4,14 @@ import AvatarSelector from '../../component/avatar-selector/avatar-selector'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { update } from '../../redux/user.redux'
+import './prince.less'
 
-class BossInfo extends Component {
+class GeniusInfo extends Component {
   constructor(props) {
 		super(props)
 		this.state = {
 			title:'',
-			desc:'',
-			company:'',
-			money:''
+			desc:''
     }
     this.selectPic = this.selectPic.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
@@ -23,28 +22,22 @@ class BossInfo extends Component {
     const path = this.props.location.pathname
     const redirect = this.props.redirectTo
     return (
-      <div>
+      <div className="princeInfo">
         {
           redirect && redirect !== path ? <Redirect to={this.props.redirectTo} /> : null
         }
-        <NavBar mode="dark" >BOSS完善信息页</NavBar>
+        <NavBar mode="dark" >王子资料详情</NavBar>
         <AvatarSelector
           selectAvatar={(imgname)=>this.selectPic(imgname)}
         ></AvatarSelector>
         <InputItem onChange={(v)=>this.onChange('title',v)}>
-          招聘职位
+          择偶标准 :
         </InputItem>
-        <InputItem onChange={(v)=>this.onChange('company',v)}>
-					公司名称
-				</InputItem>
-				<InputItem onChange={(v)=>this.onChange('money',v)}>
-					职位薪资
-				</InputItem>
         <TextareaItem
 					onChange={(v)=>this.onChange('desc',v)}
 					rows={3}
 					autoHeight
-					title='职位要求'
+					title='个人介绍 :'
 				>
 				</TextareaItem>
         <Button 
@@ -89,4 +82,4 @@ const mapDispatch = (dispatch) => {
   }
 }
 
-export default connect(mapState, mapDispatch)(BossInfo)
+export default connect(mapState, mapDispatch)(GeniusInfo)

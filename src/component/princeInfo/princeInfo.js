@@ -3,17 +3,17 @@ import { connect } from 'react-redux'
 import { getUserList } from '../../redux/chat.redux'
 import UserCard from '../userCard/userCard'
 
-class Genius extends Component{
+class Prince extends Component{
 	componentDidMount() {
-		this.getUserList('boss')
+		this.getUserList('princess')
   }
   
 	render(){
 		return <UserCard userList={this.props.userList}></UserCard>
   }
   
-  getUserList(genius) {
-    this.props.getUserListInfo(genius)
+  getUserList(princess) {
+    this.props.getUserListInfo(princess)
   }
 
 }
@@ -27,10 +27,10 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    getUserListInfo(genius) {
-      dispatch(getUserList(genius))
+    getUserListInfo(princess) {
+      dispatch(getUserList(princess))
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(Genius)
+export default connect(mapState, mapDispatch)(Prince)

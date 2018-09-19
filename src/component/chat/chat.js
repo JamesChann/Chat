@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { List, InputItem, NavBar, Icon } from 'antd-mobile'
+import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { getMsgList, sendMsg, recvMsg } from '../../redux/chatting.redux'
+import './chat.less'
 import io from 'socket.io-client'
+import { getChatId } from '../../util';
 
 const socket = io('ws://localhost:9093')
 
@@ -15,8 +17,10 @@ class Chat extends Component {
     }
   }
   componentDidMount() {
-    this.props.getMsgListInfo()
-    this.props.recvMsgInfo()
+    if (!this.props.chatInfo.chatmsg.length) {
+      this.props.getMsgListInfo()
+      this.props.recvMsgInfo()
+    }
     // socket.on('recvmsg', (data) => {
     //   this.setState({
     //     msg: [...this.state.msg, data.text]
@@ -27,13 +31,13 @@ class Chat extends Component {
   render() {
     const users = this.props.chatInfo.users
     const userId = this.props.match.params.user
-    const Item = List.Item
     if (!users[userId]) {
       return null
     }
-    console.log(this.props)
+    const chatId = getChatId(userId, this.props.userInfo._id)
+    const chatmsgs = this.props.chatInfo.chatmsg.filter((item)=>item.chatId===chatId)
     return (
-      <div id='chat-page'>
+      <div id='chat-page' className={this.props.userInfo.type==='prince'?'princeInfo':'princessInfo'}>
         <NavBar mode="dark" icon={<Icon type="left" />} onLeftClick={() => {
           this.props.history.goBack()
         }}
@@ -42,23 +46,39 @@ class Chat extends Component {
         </NavBar>
 
         {
-          this.props.chatInfo.chatmsg.map((item) => {
+          chatmsgs.map((item) => {
             const avatar = require(`../img/${users[item.from].avatar}.png`)
             return item.from === userId ? (
-              <List key={item._id}>
-                <Item
-                  thumb={avatar}
-                >
-                  {item.content}
-                </Item>
-              </List>
-            ) : (
-              <List key={item._id}>
-                <Item className="chat-me" extra={<img src={avatar} />}>
-                  {item.content}
-                </Item>
-              </List>
-            )
+                <div key={item._id} className="chathe">
+                  <img className="chatavatar" src={avatar} alt=""/>
+                  <div className="chattxt">
+                    <span>{item.content}</span>
+                    <div className="arrow"></div>
+                  </div>
+                </div>
+              ) : (
+                <div key={item._id} className="chatme">
+                  <img className="chatavatar" src={avatar} alt=""/>
+                  <div className="chattxt">
+                    <span>{item.content}</span>
+                    <div className="arrow"></div>
+                  </div>
+                </div>
+              )
+            //   <List key={item._id}>
+            //     <Item
+            //       thumb={avatar}
+            //     >
+            //       {item.content}
+            //     </Item>
+            //   </List>
+            // ) : (
+            //   <List key={item._id}>
+            //     <Item className="chat-me" extra={<img src={avatar} />}>
+            //       {item.content}
+            //     </Item>
+            //   </List>
+            // )
             // return <p key={item._id}>{item.content}</p>
           })
         }

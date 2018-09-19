@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { Grid, List } from 'antd-mobile'
-import PropTypes from 'prop-types'
+import './avatar.less'
+// import PropTypes from 'prop-types'
 
 class AvatarSelector extends Component {
-  static PropTypes = {
-    selectAvatar: PropTypes.func.isRequired
-  }
 
   constructor(props) {
     super(props)
@@ -16,7 +14,7 @@ class AvatarSelector extends Component {
 	}
 
   render() {
-    const avatarList = 'boy,girl,man,woman,bull,chick,crab,hedgehog,hippopotamus,koala,lemur,pig,tiger,whale,zebra'
+    const avatarList = 'pic01,pic02,pic03,pic04,pic05,pic06,pic07,pic08,pic09,pic10,pic11,pic12,pic13,pic14,pic15'
                         .split(',')
                         .map(v=>({
                           icon:require(`../img/${v}.png`),
@@ -24,8 +22,8 @@ class AvatarSelector extends Component {
                         }))
     const gridHeader = this.state.icon ? 
                       (<div>
-                        <span>已选择头像</span>
-                        <img style={{width:20}} src={this.state.icon} alt=""/>
+                        <span style={{verticalAlign: 'middle'}}>已选择头像</span>
+                        <img style={{width:20, verticalAlign: 'middle',marginLeft: 10}} src={this.state.icon} alt=""/>
                       </div>)
                       : '请选择头像'
     return (

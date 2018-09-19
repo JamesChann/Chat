@@ -24,8 +24,6 @@ class UserCard extends Component {
                         <div key={itemInner}>{itemInner}</div>
                       ))
                     }
-                    {item.type === 'boss' ? <div>公司:{item.company}</div> : null}
-                    {item.type === 'boss' ? <div>薪资:{item.money}</div> : null}
                   </Card.Body> 
                 </Card>) : null
           })

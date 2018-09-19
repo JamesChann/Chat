@@ -13,11 +13,8 @@ const models = {
     'avatar': {type: String},
     // 个人简介
     'desc': {type: String},
-    // 职位名称
-    'title': {type: String},
-    // 如果是Boss，再增加两个字段
-    'company': {type: String},
-    'money': {type: String}
+    // 择偶要求
+    'title': {type: String}
   },
   chat: {
     'chatId': {type: String, require: true},

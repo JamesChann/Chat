@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { register } from '../../redux/user.redux'
 import { chatForm } from '../../component/chat-form/chat-form'
+import './register.less'
 
 @chatForm
 class Register extends Component {
@@ -14,13 +15,13 @@ class Register extends Component {
   }
 
   componentDidMount(){
-		this.props.handChange('type', 'genius')
+		this.props.handChange('type', 'prince')
 	}
 
   render() {
     const RadioItem = Radio.RadioItem
     return (
-      <div>
+      <div className="register-bg">
         {
           this.props.redirectTo? <Redirect to={this.props.redirectTo} />:null
         }
@@ -49,14 +50,14 @@ class Register extends Component {
           </InputItem>
           <WhiteSpace />
           <RadioItem 
-            onChange={()=> this.props.handChange('type', 'genius')} 
-            checked={this.props.state.type==='genius'}>
-            牛人
+            onChange={()=> this.props.handChange('type', 'prince')} 
+            checked={this.props.state.type==='prince'}>
+            王子
           </RadioItem>
           <RadioItem 
-            onChange={(v)=> this.props.handChange('type', 'boss')} 
-            checked={this.props.state.type==='boss'}>
-            BOSS
+            onChange={(v)=> this.props.handChange('type', 'princess')} 
+            checked={this.props.state.type==='princess'}>
+            公主
           </RadioItem>
           <WhiteSpace />
           <Button type='primary' onClick={this.handleClick}>注册</Button>

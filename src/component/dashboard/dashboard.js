@@ -3,19 +3,18 @@ import { connect } from 'react-redux'
 import { NavBar } from 'antd-mobile'
 import NavLinkBar from '../navLinkBar/navLinkBar'
 import { Switch, Route } from 'react-router-dom'
-import Boss from '../../component/boss/boss'
-import Genius from '../../component/genius/genius'
+import PrincessInfo from '../../component/princessInfo/princessInfo'
+import PrinceInfo from '../../component/princeInfo/princeInfo'
 import User from '../../component/user/user'
+import Msg from '../../component/msg/msg'
 import { getMsgList, recvMsg } from '../../redux/chatting.redux'
-
-function Msg() {
-  return <h2>Msg页</h2>
-}
 
 class Dashboard extends Component {
 	componentDidMount() {
-    this.props.getMsgListInfo()
-    this.props.recvMsgInfo()
+    if (!this.props.chat.chatmsg.length) {
+      this.props.getMsgListInfo()
+      this.props.recvMsgInfo()
+    }
   }
 
   render() {
@@ -23,20 +22,20 @@ class Dashboard extends Component {
     const user = this.props.user
     const navList = [
 			{
-				path:'/boss',
-				text:'牛人',
+				path:'/princess',
+				text:'公子',
 				icon:'boss',
-				title:'牛人列表',
-				component:Boss,
-				hide:user.type==='genius'
+				title:'公子列表',
+				component:PrincessInfo,
+				hide:user.type==='prince'
 			},
 			{
-				path:'/genius',
-				text:'boss',
+				path:'/prince',
+				text:'菇凉',
 				icon:'job',
-				title:'BOSS列表',
-				component:Genius,
-				hide:user.type==='boss'
+				title:'菇凉列表(点击可立即聊天)',
+				component:PrinceInfo,
+				hide:user.type==='princess'
 			},
 			{
 				path:'/msg',
@@ -54,7 +53,7 @@ class Dashboard extends Component {
 			}
 		]
     return (
-      <div>
+      <div className={this.props.user.type==='prince'?'princeInfo':'princessInfo'}>
         <NavBar className='fixd-header' mode="dark">{navList.find((item)=>item.path===pathname).title}</NavBar>
         <div style={{marginTop: 45}}>
           <Switch>
@@ -73,7 +72,8 @@ class Dashboard extends Component {
 
 const mapState = (state) => {
   return {
-    user: state.user
+    user: state.user,
+    chat: state.chatting
   }
 }
 

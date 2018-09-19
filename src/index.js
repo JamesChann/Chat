@@ -9,13 +9,13 @@ import 'antd-mobile/dist/antd-mobile.css'
 import Login from './container/login/login.js'
 import Register from './container/register/register.js'
 import AuthRoute from './component/authroute/authroute'
-import BossInfo from './container/bossinfo/bossinfo'
-import GeniusInfo from './container/geniusinfo/geniusinfo'
+import PrinceInfo from './container/prince/prince'
+import PrincessInfo from './container/princess/princess'
 import Dashboard from './component/dashboard/dashboard'
 import Chat from './component/chat/chat'
 import reducers from './reducer'
 import './config'
-import './index.css'
+import './index.less'
 
 const store = createStore(reducers, compose(
 	applyMiddleware(thunk),
@@ -25,12 +25,12 @@ const store = createStore(reducers, compose(
 ReactDom.render(
 	(<Provider store={store}>
     <BrowserRouter>
-			<div>
+			<div className="page-index">
 				<AuthRoute></AuthRoute>
 				<Switch>
 					<Route path="/" exact component={Login}></Route>
-					<Route path='/bossinfo' component={BossInfo}></Route>
-					<Route path='/geniusinfo' component={GeniusInfo}></Route>
+					<Route path='/princeinfo' component={PrinceInfo}></Route>
+					<Route path='/princessinfo' component={PrincessInfo}></Route>
 					<Route path="/login" component={Login}></Route>
 					<Route path="/register" component={Register}></Route>
 					<Route path="/chat/:user" component={Chat}></Route>

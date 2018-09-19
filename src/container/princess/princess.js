@@ -4,13 +4,16 @@ import AvatarSelector from '../../component/avatar-selector/avatar-selector'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { update } from '../../redux/user.redux'
+import './princess.less'
 
-class GeniusInfo extends Component {
+class BossInfo extends Component {
   constructor(props) {
 		super(props)
 		this.state = {
 			title:'',
-			desc:''
+			desc:'',
+			company:'',
+			money:''
     }
     this.selectPic = this.selectPic.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
@@ -21,22 +24,22 @@ class GeniusInfo extends Component {
     const path = this.props.location.pathname
     const redirect = this.props.redirectTo
     return (
-      <div>
+      <div className="princessInfo">
         {
           redirect && redirect !== path ? <Redirect to={this.props.redirectTo} /> : null
         }
-        <NavBar mode="dark" >牛人完善信息页</NavBar>
+        <NavBar mode="dark" >公主资料详情</NavBar>
         <AvatarSelector
           selectAvatar={(imgname)=>this.selectPic(imgname)}
         ></AvatarSelector>
         <InputItem onChange={(v)=>this.onChange('title',v)}>
-          求职岗位
+          择偶要求 :
         </InputItem>
         <TextareaItem
 					onChange={(v)=>this.onChange('desc',v)}
 					rows={3}
 					autoHeight
-					title='个人简介'
+					title='自我介绍 :'
 				>
 				</TextareaItem>
         <Button 
@@ -81,4 +84,4 @@ const mapDispatch = (dispatch) => {
   }
 }
 
-export default connect(mapState, mapDispatch)(GeniusInfo)
+export default connect(mapState, mapDispatch)(BossInfo)
