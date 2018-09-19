@@ -24,7 +24,7 @@ class Dashboard extends Component {
 			{
 				path:'/princess',
 				text:'公子',
-				icon:'boss',
+				icon:'prencess',
 				title:'公子列表',
 				component:PrincessInfo,
 				hide:user.type==='prince'
@@ -32,7 +32,7 @@ class Dashboard extends Component {
 			{
 				path:'/prince',
 				text:'菇凉',
-				icon:'job',
+				icon:'prencess',
 				title:'菇凉列表(点击可立即聊天)',
 				component:PrinceInfo,
 				hide:user.type==='princess'

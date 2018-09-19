@@ -11,7 +11,7 @@ class UserCard extends Component {
         {
           this.props.userList.map((item) => {
             return item.avatar ? 
-                (<Card key={item._id} onClick={()=>this.handleClick(item)}>
+                (<div><Card key={item._id} onClick={()=>this.handleClick(item)}>
                   <Card.Header
                     title={item.user}
                     thumb={require(`../img/${item.avatar}.png`)}
@@ -25,7 +25,7 @@ class UserCard extends Component {
                       ))
                     }
                   </Card.Body> 
-                </Card>) : null
+                </Card><WhiteSpace /><WhiteSpace /></div>) : null
           })
         }
       </WingBlank>
