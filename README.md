@@ -7,6 +7,15 @@
 ===
 :yum: 项目演示效果图
 
-<img src="https://github.com/James-Chann/preview/blob/master/Chat/reg.gif"/>&nbsp;&nbsp;&nbsp;
+* 注册
 
+<img src="https://github.com/James-Chann/preview/blob/master/Chat/reg.gif"/>
+
+* 登陆
+
+<img src="https://github.com/James-Chann/preview/blob/master/Chat/login.gif"/>
+
+* 聊天
+
+<img src="https://github.com/James-Chann/preview/blob/master/Chat/chatting.gif"/>
 
